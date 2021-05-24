@@ -33,8 +33,6 @@ if PY3:
 else:
     str_type = basestring
 
-# --------------------------------------------------------------------------- #
-
 
 class P_AttrList(object):
 
@@ -57,8 +55,6 @@ class P_AttrList(object):
     def __repr__(self):
         return "%s(%r)" % (self.__class__.__name__, self.attrs)
 
-# --------------------------------------------------------------------------- #
-
 
 class DefaultStatement(P_AttrList):
 
@@ -71,11 +67,7 @@ class DefaultStatement(P_AttrList):
                                self.default_type, self.attrs)
 
 
-# --------------------------------------------------------------------------- #
-
 top_graphs = list()
-
-# --------------------------------------------------------------------------- #
 
 
 def push_top_graph_stmt(str, loc, toks):
@@ -383,11 +375,7 @@ def push_node_stmt(s, loc, toks):
     return n
 
 
-# --------------------------------------------------------------------------- #
-
 graphparser = None
-
-# --------------------------------------------------------------------------- #
 
 
 def graph_definition():
@@ -404,10 +392,10 @@ def graph_definition():
         rparen = Literal(")")
         equals = Literal("=")
         comma = Literal(",")
-        dot = Literal(".")
-        slash = Literal("/")
-        bslash = Literal("\\")
-        star = Literal("*")
+        dot = Literal(".")     # noqa
+        slash = Literal("/")   # noqa
+        bslash = Literal("\\") # noqa
+        star = Literal("*")    # noqa
         semi = Literal(";")
         at = Literal("@")
         minus = Literal("-")
@@ -426,7 +414,6 @@ def graph_definition():
         double_quoted_string = QuotedString(
             '"', multiline=True, unquoteResults=False, escChar='\\'
         )
-        # dblQuotedString
 
         noncomma = "".join([c for c in printables if c != ","])
         alphastring_ = OneOrMore(CharsNotIn(noncomma + ' '))
@@ -441,7 +428,6 @@ def graph_definition():
         ).setParseAction(parse_html).leaveWhitespace()
 
         ID = (identifier | html_text | double_quoted_string |
-              # .setParseAction(strip_quotes) |
               alphastring_).setName("ID")
 
         float_number = Combine(
@@ -533,8 +519,6 @@ def graph_definition():
 
     return graphparser
 
-# --------------------------------------------------------------------------- #
-
 
 def parse_dot_data(s):
     """Parse DOT description in (unicode) string `s`.
@@ -554,5 +538,3 @@ def parse_dot_data(s):
         print(" " * (err.column - 1) + "^")
         print(err)
         return None
-
-# --------------------------------------------------------------------------- #

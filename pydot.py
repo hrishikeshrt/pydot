@@ -107,7 +107,8 @@ def is_windows():
 def is_anaconda():
     # type: () -> bool
     import glob
-    return glob.glob(os.path.join(sys.prefix, 'conda-meta\\graphviz*.json')) != []
+    conda_pattern = os.path.join(sys.prefix, 'conda-meta\\graphviz*.json')
+    return glob.glob(conda_pattern) != []
 
 
 def get_executable_extension():
@@ -390,8 +391,6 @@ def graph_from_incidence_matrix(matrix, node_prefix='', directed=False):
     as they can evaluate to True or False.
     """
 
-    node_orig = 1
-
     if directed:
         graph = Dot(graph_type='digraph')
     else:
@@ -516,9 +515,7 @@ class Common(object):
         return self.obj_dict['sequence']
 
     def create_attribute_methods(self, obj_attributes):
-        # for attr in self.obj_dict['attributes']:
         for attr in obj_attributes:
-
             # Generate all the Setter methods.
             #
             self.__setattr__(
@@ -1064,10 +1061,7 @@ class Graph(Common):
             self.obj_dict['nodes'][graph_node.get_name()] = [
                 graph_node.obj_dict
             ]
-
-            # self.node_dict[graph_node.get_name()] = graph_node.attributes
             graph_node.set_parent_graph(self.get_parent_graph())
-
         else:
             self.obj_dict['nodes'][graph_node.get_name()].append(
                 graph_node.obj_dict
@@ -1317,8 +1311,6 @@ class Graph(Common):
             sgraphs_obj_dict = self.obj_dict['subgraphs'].get(name)
 
             for obj_dict_list in sgraphs_obj_dict:
-                # match.extend( Subgraph( obj_dict = obj_d )
-                #             for obj_d in obj_dict_list )
                 match.append(Subgraph(obj_dict=obj_dict_list))
 
         return match
