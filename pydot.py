@@ -416,8 +416,6 @@ def graph_from_incidence_matrix(matrix, node_prefix='', directed=False):
 
     return graph
 
-# --------------------------------------------------------------------------- #
-
 
 class Common(object):
     """Common information to several classes.
@@ -550,8 +548,6 @@ class InvocationException(Exception):
     def __str__(self):
         return self.value
 
-# --------------------------------------------------------------------------- #
-
 
 class Node(Common):
     """A graph node.
@@ -663,8 +659,6 @@ class Node(Common):
             node += ' [' + node_attr + ']'
 
         return node + ';'
-
-# --------------------------------------------------------------------------- #
 
 
 class Edge(Common):
@@ -846,8 +840,6 @@ class Edge(Common):
             edge.append(' [' + edge_attr + ']')
 
         return ' '.join(edge) + ';'
-
-# --------------------------------------------------------------------------- #
 
 
 class Graph(Common):
@@ -1452,8 +1444,6 @@ class Graph(Common):
 
         return ''.join(graph)
 
-# --------------------------------------------------------------------------- #
-
 
 class Subgraph(Graph):
 
@@ -1504,8 +1494,6 @@ class Subgraph(Graph):
 
             self.obj_dict['type'] = 'subgraph'
 
-# --------------------------------------------------------------------------- #
-
 
 class Cluster(Graph):
 
@@ -1555,8 +1543,6 @@ class Cluster(Graph):
             self.obj_dict['name'] = quote_if_necessary('cluster_'+graph_name)
 
         self.create_attribute_methods(CLUSTER_ATTRIBUTES)
-
-# --------------------------------------------------------------------------- #
 
 
 class Dot(Graph):

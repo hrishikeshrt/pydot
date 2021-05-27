@@ -277,7 +277,6 @@ def push_default_stmt(str, loc, toks):
 
 
 def push_attr_list(str, loc, toks):
-
     p = P_AttrList(toks)
     return p
 
@@ -392,10 +391,10 @@ def graph_definition():
         rparen = Literal(")")
         equals = Literal("=")
         comma = Literal(",")
-        dot = Literal(".")     # noqa
-        slash = Literal("/")   # noqa
-        bslash = Literal("\\") # noqa
-        star = Literal("*")    # noqa
+        dot = Literal(".")
+        slash = Literal("/")
+        bslash = Literal("\\")
+        star = Literal("*")
         semi = Literal(";")
         at = Literal("@")
         minus = Literal("-")

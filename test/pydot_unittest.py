@@ -27,7 +27,6 @@ TESTS_DIR_2 = 'graphs'
 
 class TestGraphAPI(unittest.TestCase):
     def setUp(self):
-
         self._reset_graphs()
 
     def _reset_graphs(self):
@@ -62,7 +61,7 @@ class TestGraphAPI(unittest.TestCase):
         assert s == expected
 
     def test_attribute_with_implicit_value(self):
-        d ='digraph {\na -> b[label="hi", decorate];\n}'
+        d = 'digraph {\na -> b[label="hi", decorate];\n}'
         graphs = pydot.graph_from_dot_data(d)
         (g,) = graphs
         attrs = g.get_edges()[0].get_attributes()
@@ -94,7 +93,6 @@ class TestGraphAPI(unittest.TestCase):
         pickle.dumps(g)
 
     def test_unicode_ids(self):
-
         node1 = '"aánñoöüé€"'
         node2 = '"îôø®çßΩ"'
 
