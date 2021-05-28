@@ -160,6 +160,7 @@ def call_graphviz(program, arguments, working_dir, **kwargs):
 # This version freezes dictionaries used as values within dictionaries.
 #
 class frozendict(dict):
+
     def _blocked_attribute(obj):
         raise AttributeError('A frozendict cannot be modified.')
     _blocked_attribute = property(_blocked_attribute)
@@ -532,6 +533,7 @@ class Common(object):
 class Error(Exception):
     """General error handling class.
     """
+
     def __init__(self, value):
         self.value = value
 
@@ -542,6 +544,7 @@ class Error(Exception):
 class InvocationException(Exception):
     """Indicate problem while running any GraphViz executable.
     """
+
     def __init__(self, value):
         self.value = value
 
@@ -569,7 +572,6 @@ class Node(Common):
         # for any GraphViz object are dealt with
         # as if they were Node definitions
         #
-
         if obj_dict is not None:
 
             self.obj_dict = obj_dict
@@ -629,7 +631,6 @@ class Node(Common):
 
     def to_string(self):
         """Return string representation of node in DOT language."""
-
         # RMF: special case defaults for node, edge and graph properties.
         #
         node = quote_if_necessary(self.obj_dict['name'])
@@ -767,7 +768,6 @@ class Edge(Common):
             return not result
 
     def parse_node_ref(self, node_str):
-
         if not isinstance(node_str, str):
             return node_str
 
@@ -794,7 +794,6 @@ class Edge(Common):
 
     def to_string(self):
         """Return string representation of edge in DOT language."""
-
         src = self.parse_node_ref(self.get_source())
         dst = self.parse_node_ref(self.get_destination())
 
@@ -881,7 +880,6 @@ class Graph(Common):
     def __init__(self, graph_name='G', obj_dict=None,
                  graph_type='digraph', strict=False,
                  suppress_disconnected=False, simplify=False, **attrs):
-
         if obj_dict is not None:
             self.obj_dict = obj_dict
 
@@ -1078,7 +1076,6 @@ class Graph(Common):
         If nodes are deleted it returns True. If no action
         is taken it returns False.
         """
-
         if isinstance(name, Node):
             name = name.get_name()
 
@@ -1104,7 +1101,6 @@ class Graph(Common):
         Node instances is returned.
         An empty list is returned otherwise.
         """
-
         match = list()
 
         if name in self.obj_dict['nodes']:
@@ -1117,7 +1113,6 @@ class Graph(Common):
 
     def get_nodes(self):
         """Get the list of Node instances."""
-
         return self.get_node_list()
 
     def get_node_list(self):
@@ -1126,7 +1121,6 @@ class Graph(Common):
         This method returns the list of Node instances
         composing the graph.
         """
-
         node_objs = list()
 
         for node in self.obj_dict['nodes']:
@@ -1144,7 +1138,6 @@ class Graph(Common):
         It takes a edge object as its only argument and returns
         None.
         """
-
         if not isinstance(graph_edge, Edge):
             raise TypeError(
                 'add_edge() received a non edge class object: ' +
@@ -1178,7 +1171,6 @@ class Graph(Common):
         If edges are deleted it returns True. If no action
         is taken it returns False.
         """
-
         if isinstance(src_or_list, (list, tuple)):
             if dst is not None and isinstance(dst, int):
                 index = dst
@@ -1213,7 +1205,6 @@ class Graph(Common):
         a list of Edge instances is returned.
         An empty list is returned otherwise.
         """
-
         if isinstance(src_or_list, (list, tuple)) and dst is None:
             edge_points = tuple(src_or_list)
             edge_points_reverse = (edge_points[1], edge_points[0])
@@ -1248,7 +1239,6 @@ class Graph(Common):
         This method returns the list of Edge instances
         composing the graph.
         """
-
         edge_objs = list()
 
         for edge in self.obj_dict['edges']:
@@ -1266,7 +1256,6 @@ class Graph(Common):
         It takes a subgraph object as its only argument and returns
         None.
         """
-
         if (not isinstance(sgraph, Subgraph) and
                 not isinstance(sgraph, Cluster)):
             raise TypeError(
@@ -1295,7 +1284,6 @@ class Graph(Common):
         Subgraph instances is returned.
         An empty list is returned otherwise.
         """
-
         match = list()
 
         if name in self.obj_dict['subgraphs']:
@@ -1316,7 +1304,6 @@ class Graph(Common):
         This method returns the list of Subgraph instances
         in the graph.
         """
-
         sgraph_objs = list()
 
         for sgraph in self.obj_dict['subgraphs']:
@@ -1329,7 +1316,6 @@ class Graph(Common):
         return sgraph_objs
 
     def set_parent_graph(self, parent_graph):
-
         self.obj_dict['parent_graph'] = parent_graph
 
         for k in self.obj_dict['nodes']:
@@ -1446,7 +1432,6 @@ class Graph(Common):
 
 
 class Subgraph(Graph):
-
     """Class representing a subgraph in Graphviz's dot language.
 
     This class implements the methods to work on a representation
@@ -1484,7 +1469,6 @@ class Subgraph(Graph):
     def __init__(self, graph_name='',
                  obj_dict=None, suppress_disconnected=False,
                  simplify=False, **attrs):
-
         Graph.__init__(
             self, graph_name=graph_name, obj_dict=obj_dict,
             suppress_disconnected=suppress_disconnected,
@@ -1496,7 +1480,6 @@ class Subgraph(Graph):
 
 
 class Cluster(Graph):
-
     """Class representing a cluster in Graphviz's dot language.
 
     This class implements the methods to work on a representation
@@ -1531,7 +1514,6 @@ class Cluster(Graph):
     def __init__(self, graph_name='subG',
                  obj_dict=None, suppress_disconnected=False,
                  simplify=False, **attrs):
-
         Graph.__init__(
             self, graph_name=graph_name, obj_dict=obj_dict,
             suppress_disconnected=suppress_disconnected,
@@ -1618,7 +1600,6 @@ class Dot(Graph):
         the same temporary location where the
         graph is going to be rendered.
         """
-
         if isinstance(file_paths, str_type):
             self.shape_files.append(file_paths)
 
@@ -1730,7 +1711,6 @@ class Dot(Graph):
           then you may want to give the absolute path to the
           executable (for example, to `dot.exe`) in `prog`.
         """
-
         if prog is None:
             prog = self.prog
 

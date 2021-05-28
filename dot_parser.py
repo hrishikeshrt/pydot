@@ -37,7 +37,6 @@ else:
 class P_AttrList(object):
 
     def __init__(self, toks):
-
         self.attrs = {}
         i = 0
 
@@ -71,7 +70,6 @@ top_graphs = list()
 
 
 def push_top_graph_stmt(str, loc, toks):
-
     attrs = {}
     g = None
 
@@ -172,7 +170,6 @@ def add_defaults(element, defaults):
 
 def add_elements(g, toks, defaults_graph=None,
                  defaults_node=None, defaults_edge=None):
-
     if defaults_graph is None:
         defaults_graph = {}
     if defaults_node is None:
@@ -236,7 +233,6 @@ def add_elements(g, toks, defaults_graph=None,
 
 
 def push_graph_stmt(str, loc, toks):
-
     g = pydot.Subgraph('')
     add_elements(g, toks)
     return g
@@ -300,7 +296,6 @@ def do_node_ports(node):
 
 
 def push_edge_stmt(str, loc, toks):
-
     tok_attrs = [a for a in toks if isinstance(a, P_AttrList)]
     attrs = {}
     for a in tok_attrs:

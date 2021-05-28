@@ -26,6 +26,7 @@ TESTS_DIR_2 = 'graphs'
 
 
 class TestGraphAPI(unittest.TestCase):
+
     def setUp(self):
         self._reset_graphs()
 
